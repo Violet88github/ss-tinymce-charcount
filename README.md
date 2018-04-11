@@ -9,6 +9,27 @@ Silverstripe 4 TinyMCE characters count
 
 * SilverStripe CMS ^4.0
 
+## Enable plugin
+In your _config.php file, add :
+```
+use SilverStripe\Forms\HTMLEditor\HtmlEditorConfig;
+use SilverStripe\Core\Manifest\ModuleResourceLoader;
+```
+Then add whatever plugins you wish to enable, + charcount
+```
+HtmlEditorConfig::get('cms')
+->enablePlugins([
+    'template',
+    'fullscreen',
+    'hr',
+    'contextmenu',
+    'charmap',
+    'visualblocks',
+    'lists',
+    'charcount' => ModuleResourceLoader::resourceURL('drmartingonzo/ss-tinymce-charcount:client/dist/js/bundle.js'),
+])
+```
+
 ## Adding a max character variable to a TinyMCE instance
 
 Set `data-maxchar` on HTMLEditorField.
