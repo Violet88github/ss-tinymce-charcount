@@ -29,6 +29,7 @@ HtmlEditorConfig::get('cms')
     'charcount' => ModuleResourceLoader::resourceURL('drmartingonzo/ss-tinymce-charcount:client/dist/js/bundle.js'),
 ])
 ```
+Then run `dev/build` with flush to remove previous TinyMCE javascript cache.
 
 ## Adding a max character variable to a TinyMCE instance
 
