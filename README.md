@@ -3,7 +3,7 @@ Silverstripe 4 TinyMCE characters count
 ![Screenshot of TinyMCE ss4 theme](https://github.com/DrMartinGonzo/ss-tinymce-charcount/blob/master/screenshot.png "Screenshot")
 ## Installation
 
-`composer require drmartingonzo/tinymce-charcount ^1`
+`composer require drmartingonzo/ss-tinymce-charcount ^1`
 
 ## Requirements
 
