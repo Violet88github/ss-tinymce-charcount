@@ -1,0 +1,6 @@
+---
+Name: tinymce-ss-charcount
+---
+SilverStripe\Admin\LeftAndMain:
+  extensions:
+    - DrMartinGonzo\TinyMCECharCountExtension

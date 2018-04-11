@@ -1,0 +1,47 @@
+{
+  "name": "ss-tinymce-charcount",
+  "version": "1.0.0",
+  "description": "Plugin for tinyMCE in siverstripe to count characters",
+  "bin": {
+    "webpack": "./node_modules/webpack/webpack.js"
+  },
+  "engines": {
+    "node": "^6.x"
+  },
+  "scripts": {
+    "build": "yarn && NODE_ENV=production webpack -p --bail --progress",
+    "dev": "NODE_ENV=development webpack --progress",
+    "watch": "NODE_ENV=development webpack --watch --progress"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/drmartingonzo/ss-tinymce-charcount.git"
+  },
+  "keywords": [
+    "silverstripe",
+    "tinymce",
+    "characters"
+  ],
+  "author": "Martin Portevin",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/drmartingonzo/ss-tinymce-charcount/issues"
+  },
+  "homepage": "https://github.com/drmartingonzo/ss-tinymce-charcount",
+  "devDependencies": {
+    "@silverstripe/eslint-config": "^0.0.4",
+    "@silverstripe/webpack-config": "^0.5.1"
+  },
+  "resolutions": {
+    "eslint": "^4.6.1"
+  },
+  "babel": {
+    "presets": [
+      "env",
+      "react"
+    ],
+    "plugins": [
+      "transform-object-rest-spread"
+    ]
+  }
+}
