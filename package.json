@@ -1,12 +1,12 @@
 {
   "name": "ss-tinymce-charcount",
-  "version": "1.0.0",
-  "description": "Plugin for tinyMCE in siverstripe to count characters",
+  "version": "1.1.0",
+  "description": "Plugin for tinyMCE in siverstripe for a simplistic count of characters and words",
   "bin": {
     "webpack": "./node_modules/webpack/webpack.js"
   },
   "engines": {
-    "node": "^6.x"
+    "node": "^10.x"
   },
   "scripts": {
     "build": "yarn && NODE_ENV=production webpack -p --bail --progress",

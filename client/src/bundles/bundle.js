@@ -1,58 +1,97 @@
 /* eslint-env browser */
 /* globals tinymce, ss */
 
-import jQuery from 'jquery'; /* eslint-disable-line */
+tinymce.PluginManager.add('charcount', editor => {
+  const goodColor = 'green';
+  const warningColor = '#e08000';
+  const dangerColor = 'red';
 
+  const charsTitle = ss.i18n._t('CHARCOUNT.CHARACTERS');
+  const wordsTitle = ss.i18n._t('CHARCOUNT.WORDS');
+  const charsLimit = editor.targetElm.getAttribute('data-maxchar');
+  const wordsLimit = editor.targetElm.getAttribute('data-maxword');
 
-tinymce.PluginManager.add('charcount', (editor) => {
-  editor.on('init', () => {
-    let statusBarCharCount;
-    let statusbar;
+  const sepStyle = 'border-right:1px solid #ced5e2;padding-right:6px;margin-right:6px;';
 
-    function getCharacterLength() {
-      let text = editor.getContent({ format: 'text' });
-      // trim and transform newlines ("\n" has a length of 2) to spaces (length = 1)
-      text = text.trim().replace(/(\n)+/g, ' ');
-      return text.length;
-    }
+  /**
+   * Trim and transform newlines ('\n' has length = 2) to spaces (length = 1)
+   */
+  function getTrimmedEditorContent() {
+    return editor
+      .getContent({ format: 'text' })
+      .trim()
+      .replace(/(\n)+/g, ' ');
+  }
 
-    function getStatusBarText() {
-      const characterLength = getCharacterLength();
-      const limit = editor.targetElm.getAttribute('data-maxchar');
-      let text = `${ss.i18n._t('CHARCOUNT.CHARACTERS')}: {0}`;
-      if (limit) {
-        const charCountSpan = statusbar.$el.find('.mce-charcount')[0];
-        if (characterLength > limit) {
-          charCountSpan.style.color = 'red';
-        } else {
-          charCountSpan.style.color = '';
-        }
-        text += ` / ${limit}`;
+  function getCharactersCount(string) {
+    return string.length;
+  }
+
+  function getWordsCount(string) {
+    return string.split(' ').length;
+  }
+
+  function getColor(count, limit) {
+    if (count > limit) {
+      if (((count - limit) / limit) * 100 > 33) {
+        return dangerColor;
       }
-      return [text, characterLength];
+      return warningColor;
+    }
+    return goodColor;
+  }
+
+  function update() {
+    const content = getTrimmedEditorContent();
+
+    let charsCount = getCharactersCount(content);
+    let charsColor = '';
+
+    let wordsCount = getWordsCount(content);
+    let wordsColor = '';
+
+    if (charsLimit) {
+      charsColor = getColor(charsCount, charsLimit);
+      charsCount += ` / ${charsLimit}`;
     }
 
-    function update() {
-      statusBarCharCount.text(getStatusBarText());
+    if (wordsLimit) {
+      wordsColor = getColor(wordsCount, wordsLimit);
+      wordsCount += ` / ${wordsLimit}`;
     }
 
-    statusbar = editor.theme.panel && editor.theme.panel.find('#statusbar')[0];
+    const text =
+      `${charsTitle}: <span style="${sepStyle}font-size:inherit;color:${charsColor}">${charsCount}</span>` +
+      `${wordsTitle}: <span style="font-size:inherit;color:${wordsColor}">${wordsCount}</span>`;
+
+    editor.theme.panel.find('#charcount')[0].innerHtml(text);
+  }
+
+  editor.on('init', () => {
+    const Delay = tinymce.util.Delay;
+    const debouncedUpdate = Delay.debounce(update, 100);
+    const statusbar = editor.theme.panel && editor.theme.panel.find('#statusbar')[0];
+
     if (statusbar) {
-      setTimeout(() => {
-        statusbar.insert({
-          type: 'label',
-          name: 'charcount',
-          classes: 'wordcount charcount',
-          disabled: editor.settings.readonly
-        }, 0);
+      Delay.setEditorTimeout(
+        editor,
+        () => {
+          statusbar.insert(
+            {
+              type: 'label',
+              name: 'charcount',
+              classes: 'wordcount charcount',
+              disabled: editor.settings.readonly,
+            },
+            0
+          );
 
-        statusBarCharCount = editor.theme.panel.find('#charcount');
-        update();
-
-        editor.on('keyup setcontent beforeaddundo', () => {
           update();
-        });
-      }, 0);
+
+          editor.on('setcontent beforeaddundo undo redo keyup', debouncedUpdate);
+        },
+        0
+      );
     }
   });
 });
