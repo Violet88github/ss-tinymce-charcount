@@ -88,7 +88,7 @@ tinymce.PluginManager.add('charcount', editor => {
 
           update();
 
-          editor.on('setcontent beforeaddundo undo redo keyup', debouncedUpdate);
+          editor.on('undo redo keyup', debouncedUpdate);
         },
         0
       );
