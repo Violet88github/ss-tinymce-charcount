@@ -6,7 +6,7 @@
     "webpack": "./node_modules/webpack/webpack.js"
   },
   "engines": {
-    "node": "^10.x"
+    "node": ">=10.0.0"
   },
   "scripts": {
     "build": "yarn && NODE_ENV=production webpack -p --bail --progress",
