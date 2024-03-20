@@ -1,35 +1,36 @@
 {
-    "name": "drmartingonzo/ss-tinymce-charcount",
-    "description": "Plugin for tinyMCE in siverstripe to count characters",
-    "type": "silverstripe-vendormodule",
-    "license": "BSD-3-Clause",
-    "keywords": [
-        "silverstripe",
-        "tinymce",
-        "characters"
+  "name": "drmartingonzo/ss-tinymce-charcount",
+  "description": "Plugin for tinyMCE in siverstripe to count characters",
+  "type": "silverstripe-vendormodule",
+  "license": "BSD-3-Clause",
+  "keywords": [
+    "silverstripe",
+    "tinymce",
+    "characters"
+  ],
+  "authors": [
+    {
+      "name": "Martin Portevin",
+      "email": "martin.portevin@gmail.com"
+    }
+  ],
+  "require": {
+    "silverstripe/cms": "^4 || ^5"
+  },
+  "extra": {
+    "installer-name": "ss-tinymce-charcount",
+    "screenshots": [
+      "screenshot.png"
     ],
-    "authors": [{
-        "name": "Martin Portevin",
-        "email": "martin.portevin@gmail.com"
-    }],
-    "require": {
-        "silverstripe/cms": "^4.0@dev",
-        "silverstripe/vendor-plugin": "^1.0"
-    },
-    "extra": {
-        "installer-name": "ss-tinymce-charcount",
-        "screenshots": [
-          "screenshot.png"
-        ],
-        "expose": [
-            "client/dist",
-            "client/lang"
-        ]
-    },
-    "autoload": {
-        "psr-4": {
-            "drmartingonzo\\ss-tinymce-charcount\\": "src/"
-        }
-    },
-    "minimum-stability": "dev"
+    "expose": [
+      "client/dist",
+      "client/lang"
+    ]
+  },
+  "autoload": {
+    "psr-4": {
+      "drmartingonzo\\ss-tinymce-charcount\\": "src/"
+    }
+  },
+  "minimum-stability": "dev"
 }
